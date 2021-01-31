@@ -1,7 +1,6 @@
 # install.packages("gmodels")
 library(dplyr)
 library(gmodels)
-library(dplyr)
 
 
 # 1- Cargamos el csv del enlace en la variable primera19_20
@@ -48,4 +47,4 @@ mytable <- table(goles$FTHG,goles$FTAG)
 mytable <- prop.table(mytable)
 mytable
 
-CrossTable(goles$FTHG, goles$FTAG, prop.chisq=FALSE, prop.r=FALSE, prop.c=FALSE)
+CrossTable(goles$FTHG, goles$FTAG, digits=4, prop.chisq=FALSE, prop.r=FALSE, prop.c=FALSE)
