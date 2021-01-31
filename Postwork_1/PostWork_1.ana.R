@@ -1,5 +1,6 @@
 install.packages("gmodels")
 library(gmodels)
+library(dplyr)
 
 
 # 1- Cargamos el csv del enlace en la variable primera19_20
@@ -36,8 +37,8 @@ data.frame(goles_casa, frecuencia_marginal, probabilidad_marginal)
 
 goles_visitantes <- sort(unique(goles$FTAG))
 frecuencias_marginales <- as.vector(table(goles$FTAG))
-frecuencias_relativas <- as.vector(prop.table(table(goles$FTAG)))
-data.frame(goles_visitantes, frecuencias_marginales, frecuencias_relativas)
+probabilidad_marginal <- as.vector(prop.table(table(goles$FTAG)))
+data.frame(goles_visitantes, frecuencias_marginales, probabilidad_marginal)
 
 
 #  La probabilidad (conjunta) de que el equipo que juega en casa anote x goles y el equipo que juega como visitante anote y goles (x = 0, 1, 2, ..., y = 0, 1, 2, ...)
