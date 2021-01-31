@@ -1,5 +1,4 @@
 library(dplyr)
-library(ggplot2)
 
 goles <-
   "https://www.football-data.co.uk/mmz4281/1920/SP1.csv" %>%
