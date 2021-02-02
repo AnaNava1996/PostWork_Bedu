@@ -51,23 +51,25 @@ newdf <- merge(newdf,marginal_visitantes,by="FTAG")
 
 newdf <- transform(newdf, Cociente = ProbabilidadConjunta / ( Prob_marginal_casa * Prob_marginal_visitantes))
 
+# Analizo el histograma de los coeficientes
+hist(newdf$Cociente,breaks = length(newdf$Cociente))
+
+# la barra en 0 está relacionada a la frecuencia de goles de la cual no hubo ocurrencias.
+# pero el histograma señala que la muestra tendría una media cercana a 1.
+
+
 #######    SEGUNDA PARTE   ##########    BOOTSTRAP   #########
 
 
-#  https://www.statmethods.net/advstats/bootstrapping.html
-# pagina 123
-#  https://cran.r-project.org/doc/contrib/Seefeld_StatsRBio.pdf
-
-
-#   Para que el coeficiente sea igual a 1, la probabilidad conjunta debe ser igual a el producto
+#   Para que el coeficiente sea igual a 1, la probabilidad conjunta debe ser igual al producto
 #   de las probabilidad marginales correspondientes, denotando así independencia entre las variables.
 #   al sacar la media en el resultado de los coeficientes, se obtiene lo siguiente
 
 mean(newdf$Cociente) # 0.8595706
 
-#   Tal valor no es igual a 1, y podría indicar que las variables No son independientes
-#   para confirmar tal hipótesis, se hará uso de Bootstrap
-#   para Simulará muestreos parecidos, y obtener la media de las medias...
+#   Tal valor no es igual a 1, y podría indicar que las variables NO son independientes
+#   para confirmar tal hipótesis, se hará uso de Bootstrap que nos servirá para 
+#   simular muestreos parecidos, y obtener la media de las medias...
 
 
 set.seed(123456)
