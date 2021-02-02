@@ -1,4 +1,4 @@
-# Postwork Sesión 4
+# Postwork Sesión 4: dependencia o independencia de variables aleatorias.
 
 #### Tabla de contenidos
 - [Objetivo](#objetivo)
@@ -43,8 +43,8 @@ goles <- rbind(goles, select(read.csv("https://www.football-data.co.uk/mmz4281/1
 Se construye la tabla de probabilidades conjuntas
 ```R
 mytable <- prop.table(table(goles$FTHG,goles$FTAG))
-table(goles$FTHG,goles$FTAG)
 ```
+<img src="https://github.com/AnaNava1996/PostWork_Bedu/blob/main/Postwork_4/screenshots/probabilidades_conjuntas.png" />
 
 La convierto a un dataframe
 ```R
