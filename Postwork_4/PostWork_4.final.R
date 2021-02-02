@@ -1,7 +1,5 @@
 library(dplyr)
-
 library(ggplot2)
-library(boot)
 
 #######    PRIMERA PARTE   ##########    COCIENTE   #########
 
@@ -13,15 +11,12 @@ goles <- rbind(goles, select(read.csv("https://www.football-data.co.uk/mmz4281/1
 #   Se construye la tabla de probabilidades conjuntas
 mytable <- prop.table(table(goles$FTHG,goles$FTAG))
 
-table(goles$FTHG,goles$FTAG)
-
 #   La convierto a un dataframe
 mydf <- as.data.frame(mytable)
 
 #   Obtengo las probabilidades marginales
 marginal_casa = as.data.frame(prop.table(table(goles$FTHG)))
 marginal_visitantes = as.data.frame(prop.table(table(goles$FTAG)))
-
 
 #   Cambio los nombres para hacer Merge()
 marginal_casa <- marginal_casa %>% 
