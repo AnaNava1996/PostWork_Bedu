@@ -74,8 +74,8 @@ mean(newdf$Cociente) # 0.8595706
 
 set.seed(123456)
 
-funcion_cociente <- funtion(){
-  
+funcion_cociente <- funtion(muestra,N){
+  sample(muestra,N,replace = TRUE)
   
 }
 
