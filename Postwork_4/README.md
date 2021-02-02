@@ -1,5 +1,13 @@
 # Postwork Sesión 4
 
+#### Tabla de contenidos
+- [Objetivo](#objetivo)
+- [Requisitos](#requisitos)
+- [Instrucciones](#instrucciones)
+- [Desarrollo](#desarrollo)
+- [Referencias](#referencias)
+
+
 #### Objetivo
 
 - Investigar la dependencia o independecia de las variables aleatorias X y Y, el número de goles anotados por el equipo de casa y el número de goles anotados por el equipo visitante.
