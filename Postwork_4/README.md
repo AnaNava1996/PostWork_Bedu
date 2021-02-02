@@ -18,31 +18,39 @@ Ahora investigarás la dependencia o independencia del número de goles anotados
 2. Mediante un procedimiento de boostrap, obtén más cocientes similares a los obtenidos en la tabla del punto anterior. Esto para tener una idea de las distribuciones de la cual vienen los cocientes en la tabla anterior. Menciona en cuáles casos le parece razonable suponer que los cocientes de la tabla en el punto 1, son iguales a 1 (en tal caso tendríamos independencia de las variables aleatorias X y Y).
 
 #### Desarrollo
+Se importan las bibliotecas que se vamos a utilizar.
+
 ```R
 library(dplyr)
 library(ggplot2)
+```
 
-#######    PRIMERA PARTE   ##########    COCIENTE   #########
-
-   Se leen los data sets
+Se leen los data sets
+```R
 goles <- select(read.csv("https://www.football-data.co.uk/mmz4281/1718/SP1.csv"),FTHG,FTAG)
 goles <- rbind(goles, select(read.csv("https://www.football-data.co.uk/mmz4281/1819/SP1.csv"),FTHG,FTAG))
 goles <- rbind(goles, select(read.csv("https://www.football-data.co.uk/mmz4281/1920/SP1.csv"),FTHG,FTAG))
+```
 
-#   Se construye la tabla de probabilidades conjuntas
+Se construye la tabla de probabilidades conjuntas
+```R
 mytable <- prop.table(table(goles$FTHG,goles$FTAG))
-
 table(goles$FTHG,goles$FTAG)
+```
 
-#   La convierto a un dataframe
+La convierto a un dataframe
+```R
 mydf <- as.data.frame(mytable)
+```
 
-#   Obtengo las probabilidades marginales
+Obtengo las probabilidades marginales
+```R
 marginal_casa = as.data.frame(prop.table(table(goles$FTHG)))
 marginal_visitantes = as.data.frame(prop.table(table(goles$FTAG)))
+```
 
-
-#   Cambio los nombres para hacer Merge()
+Cambio los nombres para hacer Merge()
+```R
 marginal_casa <- marginal_casa %>% 
   rename(
     FTHG = Var1,
@@ -64,21 +72,20 @@ mydf <- mydf %>%
 
 newdf <- merge(mydf,marginal_casa,by="FTHG")
 newdf <- merge(newdf,marginal_visitantes,by="FTAG")
-
-#   Obtengo el cociente de dividir las probabilidades conjuntas por el producto de 
-#   las probabilidades marginales correspondientes.
-
-newdf <- transform(newdf, Cociente = ProbabilidadConjunta / ( Prob_marginal_casa * Prob_marginal_visitantes))
-
-# Analizo el histograma de los coeficientes
-hist(newdf$Cociente,breaks = length(newdf$Cociente))
-
-# la barra en 0 está relacionada a la frecuencia de goles de la cual no hubo ocurrencias.
-# pero el histograma señala que la muestra tendría una media cercana a 1.
-
-
-#######    SEGUNDA PARTE   ##########    BOOTSTRAP   #########
 ```
+
+Obtengo el cociente de dividir las probabilidades conjuntas por el producto de las probabilidades marginales correspondientes.
+
+```R
+newdf <- transform(newdf, Cociente = ProbabilidadConjunta / ( Prob_marginal_casa * Prob_marginal_visitantes))
+```
+
+Analizo el histograma de los coeficientes
+```R
+hist(newdf$Cociente,breaks = length(newdf$Cociente))
+```
+
+La barra en 0 está relacionada a la frecuencia de goles de la cual no hubo ocurrencias. pero el histograma señala que la muestra tendría una media cercana a 1.
 
 Para que el coeficiente sea igual a 1, la probabilidad conjunta debe ser igual al producto de las probabilidad marginales correspondientes, denotando así independencia entre las variables. al sacar la media en el resultado de los coeficientes, se obtiene lo siguiente
 
