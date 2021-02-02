@@ -1,4 +1,6 @@
 library(dplyr)
+
+library(ggplot2)
 library(boot)
 
 #######    PRIMERA PARTE   ##########    COCIENTE   #########
@@ -10,6 +12,8 @@ goles <- rbind(goles, select(read.csv("https://www.football-data.co.uk/mmz4281/1
 
 #   Se construye la tabla de probabilidades conjuntas
 mytable <- prop.table(table(goles$FTHG,goles$FTAG))
+
+table(goles$FTHG,goles$FTAG)
 
 #   La convierto a un dataframe
 mydf <- as.data.frame(mytable)
@@ -49,6 +53,31 @@ newdf <- transform(newdf, Cociente = ProbabilidadConjunta / ( Prob_marginal_casa
 
 #######    SEGUNDA PARTE   ##########    BOOTSTRAP   #########
 
+
+#  https://www.statmethods.net/advstats/bootstrapping.html
+# pagina 123
+#  https://cran.r-project.org/doc/contrib/Seefeld_StatsRBio.pdf
+
+
+#   Para que el coeficiente sea igual a 1, la probabilidad conjunta debe ser igual a el producto
+#   de las probabilidad marginales correspondientes, denotando así independencia entre las variables.
+#   al sacar la media en el resultado de los coeficientes, se obtiene lo siguiente
+
+mean(newdf$Cociente) # 0.8595706
+
+#   Tal valor no es igual a 1, y podría indicar que las variables No son independientes
+#   para confirmar tal hipótesis, se hará uso de Bootstrap
+#   para Simulará muestreos parecidos, y obtener la media de las medias...
+
+
+set.seed(123456)
+
+funcion_cociente <- funtion(){
+  
+  
+}
+
+boot()
 
 
 
