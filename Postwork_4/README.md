@@ -56,6 +56,7 @@ Obtengo las probabilidades marginales
 marginal_casa = as.data.frame(prop.table(table(goles$FTHG)))
 marginal_visitantes = as.data.frame(prop.table(table(goles$FTAG)))
 ```
+<img src="https://github.com/AnaNava1996/PostWork_Bedu/blob/main/Postwork_4/screenshots/probabilidad_marginal_casa.png" />
 
 Cambio los nombres para hacer Merge()
 ```R
@@ -83,15 +84,16 @@ newdf <- merge(newdf,marginal_visitantes,by="FTAG")
 ```
 
 Obtengo el cociente de dividir las probabilidades conjuntas por el producto de las probabilidades marginales correspondientes.
-
 ```R
 newdf <- transform(newdf, Cociente = ProbabilidadConjunta / ( Prob_marginal_casa * Prob_marginal_visitantes))
 ```
+<img src="https://github.com/AnaNava1996/PostWork_Bedu/blob/main/Postwork_4/screenshots/tabla_coeficientes.png" />
 
 Analizo el histograma de los coeficientes
 ```R
 hist(newdf$Cociente,breaks = length(newdf$Cociente))
 ```
+<img src="https://github.com/AnaNava1996/PostWork_Bedu/blob/main/Postwork_4/screenshots/histograma_cociente.png" />
 
 La barra en 0 está relacionada a la frecuencia de goles de la cual no hubo ocurrencias. pero el histograma señala que la muestra tendría una media cercana a 1.
 
@@ -100,8 +102,9 @@ Para que el coeficiente sea igual a 1, la probabilidad conjunta debe ser igual a
 ```R
 mean(newdf$Cociente) # 0.8595706
 ```
+<img src="https://github.com/AnaNava1996/PostWork_Bedu/blob/main/Postwork_4/screenshots/media_cociente.png" />
 
-Tal valor no es igual a 1, y podría indicar que las variables NO son independientes para confirmar tal hipótesis, se hará uso de Bootstrap que nos servirá para simular muestreos parecidos, y obtener la media de las medias...
+Tal valor no es igual a 1, y podría indicar que las variables NO son independientes para confirmar tal hipótesis, se hará uso de Bootstrap que nos servirá para simular muestreos parecidos, y obtener la media de las medias.
 
 ```R
 set.seed(123456)
@@ -109,9 +112,13 @@ muestra <- newdf$Cociente
 Bootstrap_muestras_coeficiente <- replicate(50000, mean(sample(muestra, 380, replace = TRUE)))
 
 mean(Bootstrap_muestras_coeficiente)
+```
+<img src="https://github.com/AnaNava1996/PostWork_Bedu/blob/main/Postwork_4/screenshots/media_bootstrap50000.png" />
 
+```R
 hist(Bootstrap_muestras_coeficiente)
 ```
+<img src="https://github.com/AnaNava1996/PostWork_Bedu/blob/main/Postwork_4/screenshots/histograma_bootstrap.png" />
 
 Finalmente se tiene que al hacer 380 partidos unas 50000 veces, con remplazos en los valores, la media sigue siendo al rededor de 0.85, un salor diferente a 1, por lo tanto las variables son dependientes.
 
