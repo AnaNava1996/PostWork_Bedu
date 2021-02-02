@@ -73,14 +73,14 @@ mean(newdf$Cociente) # 0.8595706
 
 
 set.seed(123456)
+muestra <- newdf$Cociente
+Bootstrap_muestras_coeficiente <- replicate(50000, mean(sample(muestra, 380, replace = TRUE)))
 
-funcion_cociente <- funtion(muestra,N){
-  sample(muestra,N,replace = TRUE)
-  
-}
+mean(Bootstrap_muestras_coeficiente)
 
-boot()
-
+hist(Bootstrap_muestras_coeficiente)
 
 
-
+# finalmente se tiene que al hacer 380 partidos unas 50000 veces, con remplazos en los valores,
+# la media sigue siendo al rededor de 0.85, un salor diferente a 1, por lo tanto
+# las variables son dependientes.
