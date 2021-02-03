@@ -47,7 +47,11 @@ newdf <- merge(newdf,marginal_visitantes,by="FTAG")
 newdf <- transform(newdf, Cociente = ProbabilidadConjunta / ( Prob_marginal_casa * Prob_marginal_visitantes))
 
 # Analizo el histograma de los coeficientes
-hist(newdf$Cociente,breaks = length(newdf$Cociente))
+hist(newdf$Cociente, 
+     breaks = length(newdf$Cociente), 
+     main = "Histograma de Cocientes",
+     xlab = "Cocientes",
+     ylab = "Frecuencia")
 
 # la barra en 0 está relacionada a la frecuencia de goles de la cual no hubo ocurrencias.
 # pero el histograma señala que la muestra tendría una media cercana a 1.
@@ -56,9 +60,9 @@ hist(newdf$Cociente,breaks = length(newdf$Cociente))
 #######    SEGUNDA PARTE   ##########    BOOTSTRAP   #########
 
 
-#   Para que el coeficiente sea igual a 1, la probabilidad conjunta debe ser igual al producto
+#   Para que el cociente sea igual a 1, la probabilidad conjunta debe ser igual al producto
 #   de las probabilidad marginales correspondientes, denotando así independencia entre las variables.
-#   al sacar la media en el resultado de los coeficientes, se obtiene lo siguiente
+#   al sacar la media en el resultado de los cocientes, se obtiene lo siguiente
 
 mean(newdf$Cociente) # 0.8595706
 
@@ -69,11 +73,14 @@ mean(newdf$Cociente) # 0.8595706
 
 set.seed(123456)
 muestra <- newdf$Cociente
-Bootstrap_muestras_coeficiente <- replicate(50000, mean(sample(muestra, 380, replace = TRUE)))
+Bootstrap_muestras_cocientes <- replicate(50000, mean(sample(muestra, 380, replace = TRUE)))
 
-mean(Bootstrap_muestras_coeficiente)
+mean(Bootstrap_muestras_cocientes)
 
-hist(Bootstrap_muestras_coeficiente)
+hist(Bootstrap_muestras_cocientes,
+     main = "Histograma de medias de cocientes",
+     xlab = "Medias de cocientes",
+     ylab = "Frecuencia")
 
 
 # finalmente se tiene que al hacer 380 partidos unas 50000 veces, con remplazos en los valores,
