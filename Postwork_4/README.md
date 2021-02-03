@@ -120,7 +120,7 @@ hist(Bootstrap_muestras_coeficiente)
 ```
 <img src="https://github.com/AnaNava1996/PostWork_Bedu/blob/main/Postwork_4/screenshots/histograma_bootstrap.png" />
 
-Finalmente se tiene que al hacer 380 partidos unas 50000 veces, con remplazos en los valores, la media sigue siendo al rededor de 0.85, un salor diferente a 1, por lo tanto las variables son dependientes.
+Finalmente se tiene que al hacer 380 partidos unas 50000 veces, con remplazos en los valores, la media sigue siendo al rededor de 0.85, un valor diferente a 1, por lo tanto las variables son dependientes.
 
 
 #### Referencias
