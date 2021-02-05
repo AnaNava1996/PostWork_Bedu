@@ -85,7 +85,7 @@ server <- function(input, output) {
         )
     
     #Agregando el data table       <----------
-    output$data_table <- renderDataTable({mtcars}, 
+    output$data_table <- renderDataTable({matches}, 
                                          options = list(aLengthMenu = c(5,25,50),
                                                         iDisplayLength = 5))
 }
